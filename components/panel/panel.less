@@ -79,12 +79,13 @@
 .panel-left {
   left: 0;
   width: var(--f7-panel-left-width, var(--f7-panel-width));
-  &.panel-cover {
+  &.panel-cover,
+  &.panel-push {
     transform: translate3d(calc(-1 * var(--f7-panel-left-width, var(--f7-panel-width))), 0, 0);
     &:after {
       left: 100%;
       background: linear-gradient(to right, var(--f7-panel-shadow));
-      html.with-panel-left-cover & {
+      .with-panel-left-cover & {
         opacity: 1;
       }
     }
@@ -94,7 +95,7 @@
       right: 0;
       transform: translate3d(calc(-1 * var(--f7-panel-left-width, var(--f7-panel-width))), 0, 0);
       background: linear-gradient(to left, var(--f7-panel-shadow));
-      html.with-panel-left-reveal & {
+      .with-panel-left-reveal & {
         opacity: 1;
         transform: translate3d(0, 0, 0);
       }
@@ -104,12 +105,13 @@
 .panel-right {
   right: 0;
   width: var(--f7-panel-right-width, var(--f7-panel-width));
-  &.panel-cover {
+  &.panel-cover,
+  &.panel-push {
     transform: translate3d(var(--f7-panel-right-width, var(--f7-panel-width)), 0, 0);
     &:after {
       right: 100%;
       background: linear-gradient(to left, var(--f7-panel-shadow));
-      html.with-panel-right-cover & {
+      .with-panel-right-cover & {
         opacity: 1;
       }
     }
@@ -119,7 +121,7 @@
       left: 0;
       background: linear-gradient(to right, var(--f7-panel-shadow));
       transform: translate3d(var(--f7-panel-right-width, var(--f7-panel-width)), 0, 0);
-      html.with-panel-right-reveal & {
+      .with-panel-right-reveal & {
         opacity: 1;
         transform: translate3d(0, 0, 0);
       }
@@ -139,16 +141,13 @@
 html {
   &.with-panel-left-reveal,
   &.with-panel-right-reveal,
+  &.with-panel-left-push,
+  &.with-panel-right-push,
   &.with-panel-closing {
     .views,
     .framework7-root > .view {
       transition-duration: var(--f7-panel-transition-duration);
       transition-property: transform;
-    }
-    .panel-backdrop-in {
-      visibility: visible;
-      pointer-events: auto;
-      opacity: 0;
     }
   }
   &.with-panel {
@@ -159,34 +158,96 @@ html {
       }
     }
   }
-  &.with-panel-left-cover,
-  &.with-panel-right-cover {
-    .panel-backdrop-in {
-      visibility: visible;
-      pointer-events: auto;
-      opacity: 1;
-    }
-  }
-  &.with-panel-left-reveal {
+  &.with-panel-left-reveal,
+  &.with-panel-left-push {
     .views,
-    .framework7-root > .view,
-    .panel-backdrop-in {
+    .framework7-root > .view {
       transform: translate3d(var(--f7-panel-left-width, var(--f7-panel-width)), 0, 0);
     }
   }
-  &.with-panel-right-reveal {
+  &.with-panel-right-reveal,
+  &.with-panel-right-push {
     .views,
-    .framework7-root > .view,
-    .panel-backdrop-in {
+    .framework7-root > .view {
       transform: translate3d(calc(-1 * var(--f7-panel-right-width, var(--f7-panel-width))), 0, 0);
     }
   }
-  &.with-panel-left-cover .panel-left {
-    transform: translate3d(0px, 0, 0);
+}
+.page {
+  > .panel-backdrop {
+    z-index: 290;
   }
-  &.with-panel-right-cover .panel-right {
-    transform: translate3d(0px, 0, 0);
+  > .panel-reveal,
+  .panel-push {
+    z-index: 1;
   }
+  > .panel-cover {
+    z-index: 300;
+  }
+  &.with-panel-left-reveal,
+  &.with-panel-right-reveal,
+  &.with-panel-left-push,
+  &.with-panel-right-push,
+  &.with-panel-closing {
+    > .page-content,
+    > .tabs {
+      transition-duration: var(--f7-panel-transition-duration);
+      transition-property: transform;
+    }
+  }
+  &.with-panel-left-reveal,
+  &.with-panel-left-push {
+    > .page-content,
+    > .tabs {
+      transform: translate3d(var(--f7-panel-left-width, var(--f7-panel-width)), 0, 0);
+    }
+  }
+  &.with-panel-right-reveal,
+  &.with-panel-right-push {
+    > .page-content,
+    > .tabs {
+      transform: translate3d(calc(-1 * var(--f7-panel-right-width, var(--f7-panel-width))), 0, 0);
+    }
+  }
+}
+.with-panel-left-reveal,
+.with-panel-right-reveal,
+.with-panel-closing {
+  .panel-backdrop-in {
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 0;
+  }
+}
+.with-panel-left-cover,
+.with-panel-right-cover,
+.with-panel-left-push,
+.with-panel-right-push {
+  .panel-backdrop-in {
+    visibility: visible;
+    pointer-events: auto;
+    opacity: 1;
+  }
+}
+.with-panel-left-reveal,
+.with-panel-left-push {
+  .panel-backdrop-in {
+    transform: translate3d(var(--f7-panel-left-width, var(--f7-panel-width)), 0, 0);
+  }
+}
+.with-panel-right-reveal,
+.with-panel-right-push {
+  .panel-backdrop-in {
+    transform: translate3d(calc(-1 * var(--f7-panel-right-width, var(--f7-panel-width))), 0, 0);
+  }
+}
+.with-panel-left-cover .panel-left,
+.with-panel-left-push .panel-left {
+  transform: translate3d(0px, 0, 0);
+}
+.with-panel-right-cover .panel-right,
+.with-panel-right-push .panel-right {
+  transform: translate3d(0px, 0, 0);
 }
 .panel-resize-handler {
   position: absolute;
@@ -202,22 +263,29 @@ html {
   .panel-left.panel-cover & {
     right: -3px;
   }
-  .panel-left.panel-reveal & {
+  .panel-left.panel-reveal,
+  .panel-left.panel-push & {
     right: 0;
   }
   .panel-right.panel-cover & {
     left: -3px;
   }
-  .panel-right.panel-reveal & {
+  .panel-right.panel-reveal,
+  .panel-right.panel-push & {
     left: 0;
   }
 }
 
 .panel-left.panel-in-collapsed {
   & ~ .views,
-  & ~ .view {
+  & ~ .view,
+  & ~ .page-content,
+  & ~ .tabs {
     margin-left: var(--f7-panel-left-collapsed-width, var(--f7-panel-collapsed-width));
   }
+
+  .page.with-panel-left-reveal & ~ .page-content,
+  .page.with-panel-left-reveal & ~ .tabs,
   html.with-panel-left-reveal & ~ .views,
   html.with-panel-left-reveal & ~ .view {
     transform: translate3d(
@@ -232,9 +300,13 @@ html {
 }
 .panel-right.panel-in-collapsed {
   & ~ .views,
-  & ~ .view {
+  & ~ .view,
+  & ~ .page-content,
+  & ~ .tabs {
     margin-right: var(--f7-panel-right-collapsed-width, var(--f7-panel-collapsed-width));
   }
+  .page.with-panel-right-reveal & ~ .page-content,
+  .page.with-panel-right-reveal & ~ .tabs,
   html.with-panel-right-reveal & ~ .views,
   html.with-panel-right-reveal & ~ .view {
     transform: translate3d(
@@ -247,6 +319,7 @@ html {
     );
   }
 }
+
 html.with-modal-popup-push .framework7-root,
 html.with-modal-popup-push-closing .framework7-root {
   --f7-panelPushScale: var(--f7-popup-push-scale);
@@ -265,7 +338,8 @@ html.with-modal-sheet-push .framework7-root {
   > .panel-out {
     transition-duration: var(--f7-panelPushTransitionDuration);
 
-    &.panel-reveal.panel-left {
+    &.panel-reveal.panel-left,
+    &.panel-push.panel-left {
       transform: scale(var(--f7-panelPushScale, 1));
       transform-origin: 50vw center;
       border-top-left-radius: var(--f7-panelPushBorderRadius);
@@ -273,7 +347,8 @@ html.with-modal-sheet-push .framework7-root {
         border-top-left-radius: var(--f7-panelPushBorderRadius);
       }
     }
-    &.panel-reveal.panel-right {
+    &.panel-reveal.panel-right,
+    &.panel-push.panel-right {
       transform: scale(var(--f7-panelPushScale, 1));
       transform-origin: calc(var(--f7-panel-left-width, var(--f7-panel-width)) - 50vw) center;
       border-top-right-radius: var(--f7-panelPushBorderRadius);
@@ -292,10 +367,12 @@ html.with-modal-sheet-push .framework7-root {
 html.with-modal-popup-push-closing .framework7-root > .panel-in,
 html.with-modal-sheet-push-closing .framework7-root > .panel-in {
   transition-duration: var(--f7-panelPushTransitionDuration);
-  &.panel-reveal.panel-left {
+  &.panel-reveal.panel-left,
+  &.panel-push.panel-left {
     transform-origin: 50vw center;
   }
-  &.panel-reveal.panel-right {
+  &.panel-reveal.panel-right,
+  &.panel-push.panel-right {
     transform-origin: calc(var(--f7-panel-right-width, var(--f7-panel-width)) - 50vw) center;
   }
 }

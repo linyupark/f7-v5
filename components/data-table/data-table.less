@@ -23,6 +23,7 @@
       text-overflow: ellipsis;
       line-height: 16px;
       height: var(--f7-table-head-cell-height);
+      background-color: var(--f7-table-head-bg-color);
       &:not(.sortable-cell-active) {
         color: var(--f7-table-head-text-color);
       }
@@ -196,6 +197,7 @@
     }
     .card-header {
       min-height: var(--f7-table-card-header-height);
+      background-color: var(--f7-table-card-header-bg-color);
     }
     .card-content {
       overflow-x: auto;
@@ -244,6 +246,9 @@
       padding-top: var(--f7-card-header-padding-vertical);
       padding-bottom: var(--f7-card-header-padding-vertical);
       height: 100%;
+      margin-top: calc(-1 * var(--f7-card-header-padding-vertical));
+      margin-bottom: calc(-1 * var(--f7-card-header-padding-vertical));
+      min-height: var(--f7-table-card-header-height);
       .ltr({
         padding-left: var(--f7-table-edge-cell-padding-horizontal);
         padding-right: var(--f7-table-edge-cell-padding-horizontal);

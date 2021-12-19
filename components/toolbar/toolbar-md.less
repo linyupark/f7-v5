@@ -2,7 +2,7 @@
   .toolbar {
     .link {
       justify-content: center;
-      padding: 0 16px;
+      padding: 0 12px;
       min-width: 48px;
       .link-highlight();
     }
@@ -26,19 +26,6 @@
       overflow: hidden;
       position: relative;
     }
-    .tab-link-highlight {
-      position: absolute;
-      left: 0;
-      height: 2px;
-      background: var(--f7-tabbar-link-active-border-color, var(--f7-theme-color));
-      transition-duration: 300ms;
-      .ltr({
-        left: 0;
-      });
-      .rtl({
-        right: 0;
-      })
-    }
   }
 
   .tabbar-labels {
@@ -61,7 +48,7 @@
     }
     .tab-link,
     .link {
-      padding: 0 16px;
+      padding: 0 12px;
     }
   }
 }

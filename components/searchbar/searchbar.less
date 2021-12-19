@@ -2,12 +2,19 @@
 @import './searchbar-vars.less';
 
 .searchbar {
+  --f7-link-highlight-color: var(--f7-link-highlight-black);
+  .theme-dark & {
+    --f7-link-highlight-color: var(--f7-link-highlight-white);
+  }
   width: 100%;
   position: relative;
   z-index: 200;
   height: var(--f7-searchbar-height);
   background-image: var(--f7-searchbar-bg-image, var(--f7-bars-bg-image));
   background-color: var(--f7-searchbar-bg-color, var(--f7-bars-bg-color));
+  input[type='search']::-webkit-search-decoration {
+    display: none;
+  }
   .ios-translucent-bars(var(--f7-searchbar-bg-color-rgb, var(--f7-bars-bg-color-rgb)));
   .ios .subnavbar & {
     background-color: transparent;
@@ -282,6 +289,7 @@
   height: auto;
   background-color: transparent;
   background-image: none;
+
   &:after,
   &:before {
     display: none !important;
@@ -298,6 +306,10 @@
   input[type='text'],
   input[type='search'] {
     font-size: var(--f7-searchbar-inline-input-font-size, var(--f7-searchbar-input-font-size));
+    border-radius: var(
+      --f7-searchbar-inline-input-border-radius,
+      var(--f7-searchbar-input-border-radius)
+    );
     .ltr({
       padding-left: calc(var(--f7-searchbar-inline-input-padding-horizontal, var(--f7-searchbar-input-padding-horizontal)) + var(--f7-searchbar-input-extra-padding-left, 0px));
       padding-right: calc(var(--f7-searchbar-inline-input-padding-horizontal, var(--f7-searchbar-input-padding-horizontal)) + var(--f7-searchbar-input-extra-padding-right, 0px));;
